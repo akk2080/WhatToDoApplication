@@ -1,11 +1,16 @@
 package com.webapp.springboot.WhatToDoApplication.Todo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-
+@Entity
 public class Todo {
+    @Id
+    @GeneratedValue
     private int id;
     private String username;
     @Size(min=10, message="please enter atleast 10 characters")
