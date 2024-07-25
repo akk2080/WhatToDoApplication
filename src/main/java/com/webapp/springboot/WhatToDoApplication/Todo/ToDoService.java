@@ -14,15 +14,15 @@ public class ToDoService {
     private static List<Todo> todos = new ArrayList<>();
     private static int todosCount = 0;
     static{
-        todos.add(new Todo(++todosCount, "akk", "spring commit", LocalDate.now().plusYears(1), false));
-        todos.add(new Todo(++todosCount, "akk", "spring commit2", LocalDate.now().plusYears(1), false));
-        todos.add(new Todo(++todosCount, "akk", "spring commit3", LocalDate.now().plusYears(1), false));
+        todos.add(new Todo(++todosCount, "akk2080", "spring commit", LocalDate.now().plusYears(1), false));
+        todos.add(new Todo(++todosCount, "akk2080", "spring commit2", LocalDate.now().plusYears(1), false));
+        todos.add(new Todo(++todosCount, "akk2080", "spring commit3", LocalDate.now().plusYears(1), false));
     }
 
     public List<Todo> findByUsername(String username){
-        //return todos.stream().filter(x -> x.getUsername().equalsIgnoreCase(username));
+        return todos.stream().filter(x -> x.getUsername().equals(username)).toList();
 
-        return todos;
+
     }
 
 
