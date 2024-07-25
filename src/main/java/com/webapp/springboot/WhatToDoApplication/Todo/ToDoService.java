@@ -11,8 +11,9 @@ public class ToDoService {
 
 
     private static List<Todo> todos = new ArrayList<>();
+    private static int todosCount = 0;
     static{
-        todos.add(new Todo(1, "akk", "spring commit", LocalDate.now().plusYears(1), false));
+        todos.add(new Todo(++todosCount, "akk", "spring commit", LocalDate.now().plusYears(1), false));
     }
 
     public List<Todo> findByUsername(String username){
@@ -22,4 +23,8 @@ public class ToDoService {
     }
 
 
+    public void addTodo(String username, String description, LocalDate localDate, boolean b) {
+        Todo todo = new Todo(++todosCount, username, description, localDate, b);
+        todos.add(todo);
+    }
 }
