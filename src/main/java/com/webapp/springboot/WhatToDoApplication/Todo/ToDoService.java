@@ -1,5 +1,6 @@
 package com.webapp.springboot.WhatToDoApplication.Todo;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,6 +15,8 @@ public class ToDoService {
     private static int todosCount = 0;
     static{
         todos.add(new Todo(++todosCount, "akk", "spring commit", LocalDate.now().plusYears(1), false));
+        todos.add(new Todo(++todosCount, "akk", "spring commit2", LocalDate.now().plusYears(1), false));
+        todos.add(new Todo(++todosCount, "akk", "spring commit3", LocalDate.now().plusYears(1), false));
     }
 
     public List<Todo> findByUsername(String username){
@@ -37,7 +40,7 @@ public class ToDoService {
         return todo;
     }
 
-    public void updateTodo(Todo todo){
+    public void updateTodo(@Valid Todo todo){
 
         deleteById(todo.getId());
 
