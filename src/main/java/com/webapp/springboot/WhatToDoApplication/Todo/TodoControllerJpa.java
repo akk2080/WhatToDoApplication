@@ -40,7 +40,7 @@ public class TodoControllerJpa {
 
     @RequestMapping(value="add-todo", method= RequestMethod.GET)
     public String showNewTodoPage(ModelMap model){
-        String username = (String)model.get("name");
+        String username = getLoggedInUsername();
         Todo todo = new Todo(0, username, "default desc", LocalDate.now().plusYears(1), false);
         model.put("todo", todo);
         return "todo";
@@ -51,22 +51,26 @@ public class TodoControllerJpa {
     public String addNewTodo(ModelMap model, @Valid Todo todo, BindingResult result){
         if(result.hasErrors())
                 return "todo";
-        String username = (String)model.get("name");
-        toDoService.addTodo(username, todo.getDescription(), todo.getTargetDate(), false);
+        String username = getLoggedInUsername();
+        todo.setUsername(username);
+        todoRepository.save(todo);
+       // toDoService.addTodo(username, todo.getDescription(), todo.getTargetDate(), todo.isDone());
         return "redirect:list-todos";
 
     }
 
     @RequestMapping(value="delete-todo")
     public String deleteTodo(@RequestParam int id){
-        toDoService.deleteById(id);
+        todoRepository.deleteById(id);
+        //toDoService.deleteById(id);
         return "redirect:list-todos";
 
     }
 
     @RequestMapping(value="update-todo", method= RequestMethod.GET)
     public String showUpdateTodoPage(@RequestParam int id, ModelMap model){
-        Todo todo = toDoService.findById(id);
+        //Todo todo = toDoService.findById(id);
+        Todo todo = todoRepository.findById(id).get();
         model.addAttribute("todo", todo);
 
         return "todo";
@@ -77,9 +81,10 @@ public class TodoControllerJpa {
     public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result){
         if(result.hasErrors())
             return "todo";
-        String username = (String)model.get("name");
+        String username = getLoggedInUsername();
         todo.setUsername(username);
-        toDoService.updateTodo(todo);
+        //toDoService.updateTodo(todo);
+        todoRepository.save(todo);
 
         return "redirect:list-todos";
 
